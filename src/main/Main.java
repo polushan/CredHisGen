@@ -7,7 +7,6 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 import java.util.*;
@@ -52,6 +51,7 @@ public class Main {
                 e.printStackTrace();
             }
             Thread.sleep( 3 * 60 * 1000);
+
         }
         for (int i = 0; i < 10; i++) {
             System.out.println("=========" + i + "=========");
