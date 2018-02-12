@@ -1,1 +1,1 @@
-java -jar CredHisGen.jar
+java -jar CredHisGen.jar ${1}

@@ -1,4 +1,4 @@
-package main;
+package net.thumbtack;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -34,9 +34,10 @@ public class Main {
                 creditHistory.get(borrower).add(credit);
             }
             HttpClient client = HttpClientBuilder.create().build();
-            HttpPost post = new HttpPost("http://localhost:8080/api/add/credit");
+            String url = args.length > 0 ? args[0] : "http://localhost:8080";
+            HttpPost post = new HttpPost(url + "/api/add/credit");
 
-            List<NameValuePair> arguments = new ArrayList<>(3);
+            List<NameValuePair> arguments = new ArrayList<>(6);
             arguments.add(new BasicNameValuePair("apikey", "secretapikey"));
             arguments.add(new BasicNameValuePair("id", String.valueOf(credit.getId())));
             arguments.add(new BasicNameValuePair("sum", String.valueOf(credit.getSum())));
@@ -51,15 +52,6 @@ public class Main {
                 e.printStackTrace();
             }
             Thread.sleep( 3 * 60 * 1000);
-
-        }
-        for (int i = 0; i < 10; i++) {
-            System.out.println("=========" + i + "=========");
-            List<Credit> creditsList = creditHistory.get(i);
-            for (Credit credit: creditsList) {
-                System.out.println(credit);
-            }
-            System.out.println("===================");
         }
     }
 }

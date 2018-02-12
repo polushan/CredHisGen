@@ -1,4 +1,4 @@
-package main;
+package net.thumbtack;
 
 public class Credit {
     private long id;
@@ -14,6 +14,7 @@ public class Credit {
         this.isOverdue = isOverdue;
         this.borrower = borrower;
     }
+
 
     public void setId(long id) {
         this.id = id;

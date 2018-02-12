@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.thumbtack</groupId>
   <artifactId>CredHisGen</artifactId>
-  <packaging>war</packaging>
+  <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
   <name>CredHisGen</name>
 
@@ -20,6 +20,7 @@
   </properties>
 
 
+
   <build>
     <plugins>
       <plugin>
@@ -29,7 +30,6 @@
       </plugin>
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
-
         <configuration>
           <descriptorRefs>
             <descriptorRef>jar-with-dependencies</descriptorRef>
@@ -39,12 +39,14 @@
           <appendAssemblyId>false</appendAssemblyId>
           <archive>
             <manifest>
-              <mainClass>main.Main</mainClass>
+              <addClasspath>true</addClasspath>
+              <mainClass>net.thumbtack.Main</mainClass>
             </manifest>
           </archive>
         </configuration>
       </plugin>
     </plugins>
   </build>
+
 
 </project>
