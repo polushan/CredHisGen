@@ -1,12 +1,12 @@
 package net.thumbtack;
 
+import com.google.gson.Gson;
+
 import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.message.BasicNameValuePair;
 
 import java.io.IOException;
 import java.util.*;
@@ -14,6 +14,8 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) throws Exception {
         Map<Integer, List<Credit>> creditHistory = new HashMap<>(10);
+        List<String> flags = Arrays.asList("flag1", "flag2", "flag3", "flag4",
+                "flag5", "flag6", "flag7", "flag8", "flag9", "flag10");
         Random rand = new Random();
         for (int i = 0; i < 10; i++) {
             creditHistory.put(i, new ArrayList<>());
@@ -24,29 +26,23 @@ public class Main {
             if ((i / 10) % 2 == 1 && i > 20) {
                 List<Credit> credits = creditHistory.get(borrower);
                 int creditCount = credits.size();
-                credit = credits.get(rand.nextInt(creditCount) );
+                credit = credits.get(rand.nextInt(creditCount));
                 credit.setClosed(true);
                 credit.setOverdue(rand.nextBoolean());
             } else {
                 long id = Math.abs(rand.nextLong());
                 credit = new Credit(id, rand.nextInt(1_000_000),
-                        false, true, borrower + 1);
+                        false, true, borrower + 1, flags.get(borrower));
                 creditHistory.get(borrower).add(credit);
             }
             HttpClient client = HttpClientBuilder.create().build();
             String url = args.length > 0 ? args[0] : "http://localhost:8080";
             HttpPost post = new HttpPost(url + "/api/add/credit");
 
-            List<NameValuePair> arguments = new ArrayList<>(6);
-            arguments.add(new BasicNameValuePair("apikey", "secretapikey"));
-            arguments.add(new BasicNameValuePair("id", String.valueOf(credit.getId())));
-            arguments.add(new BasicNameValuePair("sum", String.valueOf(credit.getSum())));
-            arguments.add(new BasicNameValuePair("isclosed", String.valueOf(credit.isClosed())));
-            arguments.add(new BasicNameValuePair("isoverdue", String.valueOf(credit.isOverdue())));
-            arguments.add(new BasicNameValuePair("borrower", String.valueOf(credit.getBorrower())));
-
             try {
-                post.setEntity(new UrlEncodedFormEntity(arguments));
+                post.setHeader("Content-type", "application/json");
+                StringEntity stringEntity = new StringEntity(new Gson().toJson(credit));
+                post.setEntity(stringEntity);
                 HttpResponse response = client.execute(post);
             } catch (IOException e) {
                 e.printStackTrace();

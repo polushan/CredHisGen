@@ -6,15 +6,24 @@ public class Credit {
     private boolean isClosed;
     private boolean isOverdue;
     private long borrower;
+    private String flag;
 
-    public Credit(long id, double sum, boolean isClosed, boolean isOverdue, long borrower) {
+    public Credit(long id, double sum, boolean isClosed, boolean isOverdue, long borrower, String flag) {
         this.id = id;
         this.sum = sum;
         this.isClosed = isClosed;
         this.isOverdue = isOverdue;
         this.borrower = borrower;
+        this.flag = flag;
     }
 
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
+    }
 
     public void setId(long id) {
         this.id = id;
@@ -64,6 +73,7 @@ public class Credit {
                 ", isClosed=" + isClosed +
                 ", isOverdue=" + isOverdue +
                 ", borrower=" + borrower +
+                ", flag=" + flag +
                 '}';
     }
 }
