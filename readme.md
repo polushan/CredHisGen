@@ -9,3 +9,6 @@
 ## start project
   - bash ./start.sh "http://server-address:port"
 
+## flags
+  - src/main/resources/flags.txt
+
