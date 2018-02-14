@@ -11,4 +11,9 @@
 
 ## flags
   - src/main/resources/flags.txt
+  
+## alternative run(host and port write in Dockerfile).
+### Need to change "http://service-address:port/" to your service address in a dockerfile.
+  -  docker build -t credhisgen ./
+  -  docker run credhisgen
 
